@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "dgSpecHash": "R0bT3g6SH7PBxGb9EjR4ceIISnhOsSDzw0rU3C+NI4vNh0l8/nmsDSiTyDBWiEDvTkeflGXeTcrxiyS2afI7aw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Pheggas\\source\\repos\\bakalarka_final\\bakalarka_final\\bakalarka_final.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Pheggas\\.nuget\\packages\\aforge\\2.2.5\\aforge.2.2.5.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\aforge.video\\2.2.5\\aforge.video.2.2.5.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\emgu.cv\\4.5.5.4823\\emgu.cv.4.5.5.4823.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\emgu.cv.bitmap\\4.5.5.4823\\emgu.cv.bitmap.4.5.5.4823.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\emgu.cv.runtime.windows\\4.5.5.4823\\emgu.cv.runtime.windows.4.5.5.4823.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\emgu.runtime.windows.msvc.rt.x64\\19.29.30138\\emgu.runtime.windows.msvc.rt.x64.19.29.30138.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\emgu.runtime.windows.msvc.rt.x86\\19.29.30138\\emgu.runtime.windows.msvc.rt.x86.19.29.30138.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\system.drawing.primitives\\4.3.0\\system.drawing.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\system.runtime\\4.3.1\\system.runtime.4.3.1.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\system.runtime.interopservices.runtimeinformation\\4.3.0\\system.runtime.interopservices.runtimeinformation.4.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}
