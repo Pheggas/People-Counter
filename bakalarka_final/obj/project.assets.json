@@ -23,6 +23,18 @@
           "lib/AForge.Video.dll": {}
         }
       },
+      "AForge.Video.DirectShow/2.2.5": {
+        "type": "package",
+        "dependencies": {
+          "AForge.Video": "2.2.5"
+        },
+        "compile": {
+          "lib/AForge.Video.DirectShow.dll": {}
+        },
+        "runtime": {
+          "lib/AForge.Video.DirectShow.dll": {}
+        }
+      },
       "Emgu.CV/4.5.5.4823": {
         "type": "package",
         "dependencies": {
@@ -234,6 +246,18 @@
           "lib/AForge.Video.dll": {}
         }
       },
+      "AForge.Video.DirectShow/2.2.5": {
+        "type": "package",
+        "dependencies": {
+          "AForge.Video": "2.2.5"
+        },
+        "compile": {
+          "lib/AForge.Video.DirectShow.dll": {}
+        },
+        "runtime": {
+          "lib/AForge.Video.DirectShow.dll": {}
+        }
+      },
       "Emgu.CV/4.5.5.4823": {
         "type": "package",
         "dependencies": {
@@ -351,6 +375,18 @@
         },
         "runtime": {
           "lib/AForge.Video.dll": {}
+        }
+      },
+      "AForge.Video.DirectShow/2.2.5": {
+        "type": "package",
+        "dependencies": {
+          "AForge.Video": "2.2.5"
+        },
+        "compile": {
+          "lib/AForge.Video.DirectShow.dll": {}
+        },
+        "runtime": {
+          "lib/AForge.Video.DirectShow.dll": {}
         }
       },
       "Emgu.CV/4.5.5.4823": {
@@ -484,6 +520,18 @@
         },
         "runtime": {
           "lib/AForge.Video.dll": {}
+        }
+      },
+      "AForge.Video.DirectShow/2.2.5": {
+        "type": "package",
+        "dependencies": {
+          "AForge.Video": "2.2.5"
+        },
+        "compile": {
+          "lib/AForge.Video.DirectShow.dll": {}
+        },
+        "runtime": {
+          "lib/AForge.Video.DirectShow.dll": {}
         }
       },
       "Emgu.CV/4.5.5.4823": {
@@ -622,6 +670,19 @@
         "aforge.video.nuspec",
         "lib/AForge.Video.dll",
         "lib/AForge.Video.xml"
+      ]
+    },
+    "AForge.Video.DirectShow/2.2.5": {
+      "sha512": "pEch6felU/RGAbl0A7yjaQjsGxwiRFU9R+qBqR92wQo++XhzPLeQaZHnAPIBYaG7MfoqtjgCDkK4z3Tra4VQ3w==",
+      "type": "package",
+      "path": "aforge.video.directshow/2.2.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aforge.video.directshow.2.2.5.nupkg.sha512",
+        "aforge.video.directshow.nuspec",
+        "lib/AForge.Video.DirectShow.dll",
+        "lib/AForge.Video.DirectShow.xml"
       ]
     },
     "Emgu.CV/4.5.5.4823": {
@@ -943,6 +1004,7 @@
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.7.2": [
       "AForge.Video >= 2.2.5",
+      "AForge.Video.DirectShow >= 2.2.5",
       "Emgu.CV >= 4.5.5.4823",
       "Emgu.CV.Bitmap >= 4.5.5.4823",
       "Emgu.CV.runtime.windows >= 4.5.5.4823",
@@ -983,6 +1045,10 @@
       "net472": {
         "dependencies": {
           "AForge.Video": {
+            "target": "Package",
+            "version": "[2.2.5, )"
+          },
+          "AForge.Video.DirectShow": {
             "target": "Package",
             "version": "[2.2.5, )"
           },

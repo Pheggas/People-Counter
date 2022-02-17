@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "R0bT3g6SH7PBxGb9EjR4ceIISnhOsSDzw0rU3C+NI4vNh0l8/nmsDSiTyDBWiEDvTkeflGXeTcrxiyS2afI7aw==",
+  "dgSpecHash": "reJzK6gtJA0XPyqR9/9l688xnIm/8M3nn7x31yqN1OyZ36FSM87gERIHU1KkA7cth7AGUNvLnw0mey7kq33msA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Pheggas\\source\\repos\\bakalarka_final\\bakalarka_final\\bakalarka_final.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Pheggas\\.nuget\\packages\\aforge\\2.2.5\\aforge.2.2.5.nupkg.sha512",
     "C:\\Users\\Pheggas\\.nuget\\packages\\aforge.video\\2.2.5\\aforge.video.2.2.5.nupkg.sha512",
+    "C:\\Users\\Pheggas\\.nuget\\packages\\aforge.video.directshow\\2.2.5\\aforge.video.directshow.2.2.5.nupkg.sha512",
     "C:\\Users\\Pheggas\\.nuget\\packages\\emgu.cv\\4.5.5.4823\\emgu.cv.4.5.5.4823.nupkg.sha512",
     "C:\\Users\\Pheggas\\.nuget\\packages\\emgu.cv.bitmap\\4.5.5.4823\\emgu.cv.bitmap.4.5.5.4823.nupkg.sha512",
     "C:\\Users\\Pheggas\\.nuget\\packages\\emgu.cv.runtime.windows\\4.5.5.4823\\emgu.cv.runtime.windows.4.5.5.4823.nupkg.sha512",

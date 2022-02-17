@@ -10,8 +10,7 @@ using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
-using AForge;
-using Newtonsoft.Json;
+using AForge.Video.DirectShow;
 
 namespace bakalarka_final
 {
@@ -29,23 +28,41 @@ namespace bakalarka_final
         bool faceSide = false; //define if face is in region of interest (ROI)
         int rectEmpty = 0; //number of frames in which ROI doesn't have any faces in it
         Size minSize = new System.Drawing.Size(24, 24); // size that equals to size of trained images from XML
+        System.Globalization.CultureInfo currentLanguage = System.Globalization.CultureInfo.CurrentUICulture;
+        FilterInfoCollection DataCollector;
+        string count_LT, side_LT, rectEmpty_LT, minFaceSize_LT = null;
+        int p1x, p2x, p1y, p2y;
+        Point px, py;
+        int cameraIndex = 0;
 
         public Form1()
         {
             InitializeComponent();
             haar = new CascadeClassifier(cfgFile.haarFile); //initialize haar cascade
+            if (currentLanguage.ToString() == "sk-SK") // and app preferences with this variable is empty
+            {
+                SK();
+            }
+            else // and app preferences with this variable is empty
+            {
+                EN();
+            }
         }
 
         private void ProcessFrame(object sender, EventArgs e)
-        { 
+        {
+            px = new Point(p1x, p1y);
+            py = new Point(p2x, p2y);
+
             if (camera != null) //comes from button1.click
             {
-                camera.Retrieve(frame, 0); 
+                camera.Retrieve(frame, 0);
                 //pictureBox1.Image = Image.FromHbitmap(cFrame
                 cFrame = frame.ToImage<Bgr, byte>().Resize(pictureBox1.Width, pictureBox1.Height, Inter.Cubic); //edit image to fit the pictureBox; convert it to System class image
                 Mat grayFrame = new Mat();
                 CvInvoke.CvtColor(cFrame, grayFrame, ColorConversion.Bgr2Gray); //convert image to grayscale
-                Rectangle[] faces = haar.DetectMultiScale(grayFrame, 1.1, 3, minSize, Size.Empty); //detect face
+                Rectangle[] faces = haar.DetectMultiScale(grayFrame, 1.1, 3, minSize, Size.Empty); //detect 
+                //CvInvoke.Line(cFrame, px, py, new MCvScalar(0, 0, 255), 2); // draw red 
                 if (faces.Length > 0)
                 {
                     foreach (var face in faces)
@@ -54,9 +71,9 @@ namespace bakalarka_final
                         {
                             faceCount_L.Text = faces.Length.ToString();
                             CvInvoke.Rectangle(cFrame, face, new Bgr(Color.Green).MCvScalar, 2); //draw 
-                            count_L.Text = "People passed: " + count.ToString();
-                            label2.Text = "faceSide: " + faceSide.ToString();
-                            label3.Text = "rectEmptyFrames: " + rectEmpty.ToString();
+                            count_L.Text = count.ToString() + count_LT;
+                            side_L.Text = side_LT + faceSide.ToString();
+                            rectEmpty_L.Text = rectEmpty_LT + rectEmpty.ToString();
                             if (face.Location.X >= 200)
                             {
                                 rectEmpty += 1;
@@ -67,10 +84,13 @@ namespace bakalarka_final
                             }
                             if (faceSide == false && face.Location.X < 200)
                             {
+                                timer1.Start();
+                                //CvInvoke.Line(cFrame, px, py, new MCvScalar(0, 255, 0), 4); //draw green line if people passed
                                 faceSide = true;
                                 count += 1;
                                 rectEmpty = 0;
                             }
+                            drawLine();
                             doneImage = cFrame.Convert<Bgr, Byte>(); //pass image to doneImage
                         }
                     }
@@ -81,28 +101,95 @@ namespace bakalarka_final
             GC.Collect(); //execute pressure releasing
         }
 
+
         private void button1_Click(object sender, EventArgs e)
         {
             Webcam();
         }
 
+        void EN()
+        {
+            optionsToolStripMenuItem.Text = "Options";
+            chooseCameraDeviceToolStripMenuItem.Text = "Choose camera device";
+            languageToolStripMenuItem.Text = "Language";
+            count_LT = " people counted";
+            side_LT = "Face in ROI: ";
+            rectEmpty_LT = "Frames without face in ROI: ";
+            minFaceSize_LT = "Filter out faces smaller than ";
+            button1.Text = "Start";
+        }
+
+        void SK()
+        {
+            optionsToolStripMenuItem.Text = "Možnosti";
+            chooseCameraDeviceToolStripMenuItem.Text = "Zvoliť zaznamenávacie zariadenie";
+            languageToolStripMenuItem.Text = "Jazyk";
+            count_LT = " započítaných ľudí";
+            side_LT = "Tvár v ROI: ";
+            rectEmpty_LT = "Počet snímkov bez tváre v ROI: ";
+            minFaceSize_LT = "Vyfiltrovať tváre menšie ako ";
+            button1.Text = "Spustiť";
+        }
+
         void Webcam()
         {
             if (camera != null) camera.Dispose();
-            camera = new VideoCapture();
+            camera = new VideoCapture(cameraIndex);
             camera.QueryFrame(); //necessarry
             camera.Start(); //necessarry
             Application.Idle += ProcessFrame; //pass it to ProcessFrame void
         }
 
+        void drawLine()
+        {
+            if (timer1.Enabled == false)
+            {
+                CvInvoke.Line(cFrame, px, py, new MCvScalar(0, 0, 255), 2);
+            }
+            else CvInvoke.Line(cFrame, px, py, new MCvScalar(0, 255, 0), 2);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Stop();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            p1x = 200 ;
+            p1y = 0 ;
+            p2x = 200 ;
+            p2y = pictureBox1.Height;
+            timer1.Interval = 100; // 0,1 second
+            timer1.Enabled = true;
             minFaceSize.Maximum = pictureBox1.Height;
+            DataCollector = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            foreach (FilterInfo Data in DataCollector)
+            {
+                chooseCameraDeviceToolStripMenuItem.DropDownItems.Add(Data.Name);
+            }
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            minFaceSize_L.Text = minFaceSize.Value.ToString();
+            minFaceSize_L.Text = minFaceSize_LT + minFaceSize.Value.ToString() + " px";
+        }
+
+        private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EN(); // write this selection down to app preferences to keep it saved even after app closes
+            trackBar1_Scroll(sender, e);
+        }
+
+        private void slovakToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SK(); // write this selection down to app preferences to keep it saved even after app closes
+            trackBar1_Scroll(sender, e);
+        }
+
+        private void chooseCameraDeviceToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            cameraIndex = chooseCameraDeviceToolStripMenuItem.DropDownItems.IndexOf(e.ClickedItem);
         }
     }
 }

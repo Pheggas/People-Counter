@@ -83,6 +83,9 @@
     <PackageReference Include="AForge.Video">
       <Version>2.2.5</Version>
     </PackageReference>
+    <PackageReference Include="AForge.Video.DirectShow">
+      <Version>2.2.5</Version>
+    </PackageReference>
     <PackageReference Include="Emgu.CV">
       <Version>4.5.5.4823</Version>
     </PackageReference>
