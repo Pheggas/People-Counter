@@ -39,14 +39,6 @@ namespace bakalarka_final
         {
             InitializeComponent();
             haar = new CascadeClassifier(cfgFile.haarFile); //initialize haar cascade
-            if (currentLanguage.ToString() == "sk-SK") // and app preferences with this variable is empty
-            {
-                SK();
-            }
-            else // and app preferences with this variable is empty
-            {
-                EN();
-            }
         }
 
         private void ProcessFrame(object sender, EventArgs e)
@@ -57,12 +49,10 @@ namespace bakalarka_final
             if (camera != null) //comes from button1.click
             {
                 camera.Retrieve(frame, 0);
-                //pictureBox1.Image = Image.FromHbitmap(cFrame
                 cFrame = frame.ToImage<Bgr, byte>().Resize(pictureBox1.Width, pictureBox1.Height, Inter.Cubic); //edit image to fit the pictureBox; convert it to System class image
                 Mat grayFrame = new Mat();
                 CvInvoke.CvtColor(cFrame, grayFrame, ColorConversion.Bgr2Gray); //convert image to grayscale
                 Rectangle[] faces = haar.DetectMultiScale(grayFrame, 1.1, 3, minSize, Size.Empty); //detect 
-                //CvInvoke.Line(cFrame, px, py, new MCvScalar(0, 0, 255), 2); // draw red 
                 if (faces.Length > 0)
                 {
                     foreach (var face in faces)
@@ -70,7 +60,7 @@ namespace bakalarka_final
                         if (face.Width >= minFaceSize.Value)
                         {
                             faceCount_L.Text = faces.Length.ToString();
-                            CvInvoke.Rectangle(cFrame, face, new Bgr(Color.Green).MCvScalar, 2); //draw 
+                            CvInvoke.Rectangle(cFrame, face, new Bgr(Color.Green).MCvScalar, 2);
                             count_L.Text = count.ToString() + count_LT;
                             side_L.Text = side_LT + faceSide.ToString();
                             rectEmpty_L.Text = rectEmpty_LT + rectEmpty.ToString();
@@ -85,7 +75,6 @@ namespace bakalarka_final
                             if (faceSide == false && face.Location.X < 200)
                             {
                                 timer1.Start();
-                                //CvInvoke.Line(cFrame, px, py, new MCvScalar(0, 255, 0), 4); //draw green line if people passed
                                 faceSide = true;
                                 count += 1;
                                 rectEmpty = 0;
@@ -101,17 +90,13 @@ namespace bakalarka_final
             GC.Collect(); //execute pressure releasing
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Webcam();
-        }
-
         void EN()
         {
             optionsToolStripMenuItem.Text = "Options";
-            chooseCameraDeviceToolStripMenuItem.Text = "Choose camera device";
             languageToolStripMenuItem.Text = "Language";
+            deviceToolStripMenuItem.Text = "Device";
+            chooseCameraDeviceToolStripMenuItem.Text = "Choose camera device";
+            aspectRatioToolStripMenuItem.Text = "Aspect ratio";
             count_LT = " people counted";
             side_LT = "Face in ROI: ";
             rectEmpty_LT = "Frames without face in ROI: ";
@@ -122,8 +107,10 @@ namespace bakalarka_final
         void SK()
         {
             optionsToolStripMenuItem.Text = "Možnosti";
-            chooseCameraDeviceToolStripMenuItem.Text = "Zvoliť zaznamenávacie zariadenie";
             languageToolStripMenuItem.Text = "Jazyk";
+            deviceToolStripMenuItem.Text = "Zariadenie";
+            chooseCameraDeviceToolStripMenuItem.Text = "Zvoliť zaznamenávacie zariadenie";
+            aspectRatioToolStripMenuItem.Text = "Pomer strán";
             count_LT = " započítaných ľudí";
             side_LT = "Tvár v ROI: ";
             rectEmpty_LT = "Počet snímkov bez tváre v ROI: ";
@@ -135,9 +122,24 @@ namespace bakalarka_final
         {
             if (camera != null) camera.Dispose();
             camera = new VideoCapture(cameraIndex);
+            adaptPictureBox();
             camera.QueryFrame(); //necessarry
             camera.Start(); //necessarry
             Application.Idle += ProcessFrame; //pass it to ProcessFrame void
+        }
+
+        void adaptPictureBox()
+        {
+            pictureBox1.Height = camera.Height;
+            pictureBox1.Width = camera.Width;
+            button1.Location = new Point(pictureBox1.Location.X + pictureBox1.Width + 6, pictureBox1.Location.Y);
+            count_L.Location = new Point(button1.Location.X, button1.Location.Y + button1.Size.Height + 3);
+            side_L.Location = new Point(count_L.Location.X, count_L.Location.Y + count_L.Height + 3);
+            rectEmpty_L.Location = new Point(side_L.Location.X, side_L.Location.Y + side_L.Height + 3);
+            minFaceSize_L.Location = new Point(rectEmpty_L.Location.X, rectEmpty_L.Location.Y + rectEmpty_L.Height + 60);
+            minFaceSize.Location = new Point(minFaceSize_L.Location.X, minFaceSize_L.Location.Y + minFaceSize_L.Height + 3);
+            minFaceSize.Maximum = pictureBox1.Height;
+            this.Size = new Size(button1.Location.X + button1.Width + 120, pictureBox1.Location.Y + pictureBox1.Height + 50);
         }
 
         void drawLine()
@@ -149,25 +151,37 @@ namespace bakalarka_final
             else CvInvoke.Line(cFrame, px, py, new MCvScalar(0, 255, 0), 2);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            timer1.Stop();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            p1x = 200 ;
-            p1y = 0 ;
-            p2x = 200 ;
+            p1x = 200;
+            p1y = 0;
+            p2x = 200;
             p2y = pictureBox1.Height;
             timer1.Interval = 100; // 0,1 second
             timer1.Enabled = true;
-            minFaceSize.Maximum = pictureBox1.Height;
+            if (currentLanguage.ToString() == "sk-SK")
+            {
+                SK();
+            }
+            else
+            {
+                EN();
+            }
             DataCollector = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             foreach (FilterInfo Data in DataCollector)
             {
                 chooseCameraDeviceToolStripMenuItem.DropDownItems.Add(Data.Name);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Webcam();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Stop();
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -177,13 +191,13 @@ namespace bakalarka_final
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EN(); // write this selection down to app preferences to keep it saved even after app closes
+            EN(); 
             trackBar1_Scroll(sender, e);
         }
 
         private void slovakToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SK(); // write this selection down to app preferences to keep it saved even after app closes
+            SK(); 
             trackBar1_Scroll(sender, e);
         }
 

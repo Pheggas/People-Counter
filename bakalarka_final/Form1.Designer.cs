@@ -39,12 +39,14 @@
             this.minFaceSize_L = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chooseCameraDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.slovakToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.deviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chooseCameraDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aspectRatioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minFaceSize)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -52,7 +54,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 65);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 27);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(615, 404);
             this.pictureBox1.TabIndex = 0;
@@ -60,7 +62,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(633, 65);
+            this.button1.Location = new System.Drawing.Point(633, 27);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -71,7 +73,7 @@
             // count_L
             // 
             this.count_L.AutoSize = true;
-            this.count_L.Location = new System.Drawing.Point(633, 91);
+            this.count_L.Location = new System.Drawing.Point(633, 53);
             this.count_L.Name = "count_L";
             this.count_L.Size = new System.Drawing.Size(35, 13);
             this.count_L.TabIndex = 2;
@@ -80,7 +82,7 @@
             // side_L
             // 
             this.side_L.AutoSize = true;
-            this.side_L.Location = new System.Drawing.Point(633, 104);
+            this.side_L.Location = new System.Drawing.Point(633, 66);
             this.side_L.Name = "side_L";
             this.side_L.Size = new System.Drawing.Size(35, 13);
             this.side_L.TabIndex = 3;
@@ -89,7 +91,7 @@
             // rectEmpty_L
             // 
             this.rectEmpty_L.AutoSize = true;
-            this.rectEmpty_L.Location = new System.Drawing.Point(633, 117);
+            this.rectEmpty_L.Location = new System.Drawing.Point(633, 79);
             this.rectEmpty_L.Name = "rectEmpty_L";
             this.rectEmpty_L.Size = new System.Drawing.Size(35, 13);
             this.rectEmpty_L.TabIndex = 4;
@@ -98,7 +100,7 @@
             // faceCount_L
             // 
             this.faceCount_L.AutoSize = true;
-            this.faceCount_L.Location = new System.Drawing.Point(674, 413);
+            this.faceCount_L.Location = new System.Drawing.Point(674, 375);
             this.faceCount_L.Name = "faceCount_L";
             this.faceCount_L.Size = new System.Drawing.Size(35, 13);
             this.faceCount_L.TabIndex = 5;
@@ -106,7 +108,7 @@
             // 
             // minFaceSize
             // 
-            this.minFaceSize.Location = new System.Drawing.Point(645, 237);
+            this.minFaceSize.Location = new System.Drawing.Point(645, 199);
             this.minFaceSize.Maximum = 1000;
             this.minFaceSize.Minimum = 1;
             this.minFaceSize.Name = "minFaceSize";
@@ -118,7 +120,7 @@
             // minFaceSize_L
             // 
             this.minFaceSize_L.AutoSize = true;
-            this.minFaceSize_L.Location = new System.Drawing.Point(655, 221);
+            this.minFaceSize_L.Location = new System.Drawing.Point(655, 183);
             this.minFaceSize_L.Name = "minFaceSize_L";
             this.minFaceSize_L.Size = new System.Drawing.Size(13, 13);
             this.minFaceSize_L.TabIndex = 7;
@@ -127,7 +129,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem});
+            this.optionsToolStripMenuItem,
+            this.deviceToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(843, 24);
@@ -137,18 +140,10 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.chooseCameraDeviceToolStripMenuItem,
             this.languageToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
-            // 
-            // chooseCameraDeviceToolStripMenuItem
-            // 
-            this.chooseCameraDeviceToolStripMenuItem.Name = "chooseCameraDeviceToolStripMenuItem";
-            this.chooseCameraDeviceToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.chooseCameraDeviceToolStripMenuItem.Text = "Choose camera device";
-            this.chooseCameraDeviceToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.chooseCameraDeviceToolStripMenuItem_DropDownItemClicked);
             // 
             // languageToolStripMenuItem
             // 
@@ -156,27 +151,27 @@
             this.englishToolStripMenuItem,
             this.slovakToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
             // 
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
             // slovakToolStripMenuItem
             // 
             this.slovakToolStripMenuItem.Name = "slovakToolStripMenuItem";
-            this.slovakToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.slovakToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.slovakToolStripMenuItem.Text = "Slovenčina";
             this.slovakToolStripMenuItem.Click += new System.EventHandler(this.slovakToolStripMenuItem_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(727, 342);
+            this.label1.Location = new System.Drawing.Point(727, 304);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 9;
@@ -185,6 +180,27 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // deviceToolStripMenuItem
+            // 
+            this.deviceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chooseCameraDeviceToolStripMenuItem,
+            this.aspectRatioToolStripMenuItem});
+            this.deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
+            this.deviceToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.deviceToolStripMenuItem.Text = "Device";
+            // 
+            // chooseCameraDeviceToolStripMenuItem
+            // 
+            this.chooseCameraDeviceToolStripMenuItem.Name = "chooseCameraDeviceToolStripMenuItem";
+            this.chooseCameraDeviceToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.chooseCameraDeviceToolStripMenuItem.Text = "Choose camera device";
+            // 
+            // aspectRatioToolStripMenuItem
+            // 
+            this.aspectRatioToolStripMenuItem.Name = "aspectRatioToolStripMenuItem";
+            this.aspectRatioToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.aspectRatioToolStripMenuItem.Text = "Aspect ratio";
             // 
             // Form1
             // 
@@ -226,11 +242,13 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem chooseCameraDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem slovakToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem deviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem chooseCameraDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aspectRatioToolStripMenuItem;
     }
 }
 
