@@ -28,12 +28,11 @@ namespace bakalarka_final
         bool faceSide = false; //define if face is in region of interest (ROI)
         int rectEmpty = 0; //number of frames in which ROI doesn't have any faces in it
         Size minSize = new System.Drawing.Size(24, 24); // size that equals to size of trained images from XML
-        System.Globalization.CultureInfo currentLanguage = System.Globalization.CultureInfo.CurrentUICulture;
+        System.Globalization.CultureInfo systemLanguage = System.Globalization.CultureInfo.CurrentUICulture;
         FilterInfoCollection DataCollector;
         string count_LT, side_LT, rectEmpty_LT, minFaceSize_LT = null;
         int p1x, p2x, p1y, p2y;
         Point px, py;
-        int cameraIndex = 0;
 
         public Form1()
         {
@@ -121,7 +120,7 @@ namespace bakalarka_final
         void Webcam()
         {
             if (camera != null) camera.Dispose();
-            camera = new VideoCapture(cameraIndex);
+            camera = new VideoCapture(Properties.Settings.Default.cameraIndex);
             adaptPictureBox();
             camera.QueryFrame(); //necessarry
             camera.Start(); //necessarry
@@ -151,21 +150,44 @@ namespace bakalarka_final
             else CvInvoke.Line(cFrame, px, py, new MCvScalar(0, 255, 0), 2);
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Language = "x";
+            Properties.Settings.Default.Save();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            label1.Text = systemLanguage.ToString();
+            faceCount_L.Text = Properties.Settings.Default.Language;
             p1x = 200;
             p1y = 0;
             p2x = 200;
             p2y = pictureBox1.Height;
             timer1.Interval = 100; // 0,1 second
             timer1.Enabled = true;
-            if (currentLanguage.ToString() == "sk-SK")
+            if (Properties.Settings.Default.Language == "x")
             {
                 SK();
+                //if (systemLanguage.ToString() == "sk-SK")
+                //{
+                //    SK();
+                //}
+                //else
+                //{
+                //    EN();
+                //}
             }
-            else
+            else if (Properties.Settings.Default.Language != "x")
             {
-                EN();
+                if (Properties.Settings.Default.Language == "SK")
+                {
+                    SK();
+                }
+                else if (Properties.Settings.Default.Language == "EN")
+                {
+                    EN();
+                }
             }
             DataCollector = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             foreach (FilterInfo Data in DataCollector)
@@ -191,19 +213,24 @@ namespace bakalarka_final
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EN(); 
+            EN();
+            Properties.Settings.Default.Language = "EN";
+            Properties.Settings.Default.Save();
             trackBar1_Scroll(sender, e);
         }
 
         private void slovakToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SK(); 
+            SK();
+            Properties.Settings.Default.Language = "SK";
+            Properties.Settings.Default.Save();
             trackBar1_Scroll(sender, e);
         }
 
         private void chooseCameraDeviceToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            cameraIndex = chooseCameraDeviceToolStripMenuItem.DropDownItems.IndexOf(e.ClickedItem);
+            Properties.Settings.Default.cameraIndex = chooseCameraDeviceToolStripMenuItem.DropDownItems.IndexOf(e.ClickedItem);
+            Properties.Settings.Default.Save();
         }
     }
 }
