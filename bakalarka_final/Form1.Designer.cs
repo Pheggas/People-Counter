@@ -48,6 +48,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button2 = new System.Windows.Forms.Button();
+            this.displaySettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showCountLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minFaceSize)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -141,7 +143,8 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.languageToolStripMenuItem});
+            this.languageToolStripMenuItem,
+            this.displaySettingsToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -152,7 +155,7 @@
             this.englishToolStripMenuItem,
             this.slovakToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
@@ -207,11 +210,25 @@
             // 
             this.button2.Location = new System.Drawing.Point(677, 407);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(110, 23);
             this.button2.TabIndex = 10;
-            this.button2.Text = "button2";
+            this.button2.Text = "test for lang var";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // displaySettingsToolStripMenuItem
+            // 
+            this.displaySettingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showCountLineToolStripMenuItem});
+            this.displaySettingsToolStripMenuItem.Name = "displaySettingsToolStripMenuItem";
+            this.displaySettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.displaySettingsToolStripMenuItem.Text = "Display settings";
+            // 
+            // showCountLineToolStripMenuItem
+            // 
+            this.showCountLineToolStripMenuItem.Name = "showCountLineToolStripMenuItem";
+            this.showCountLineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showCountLineToolStripMenuItem.Text = "Show count line";
             // 
             // Form1
             // 
@@ -262,6 +279,8 @@
         private System.Windows.Forms.ToolStripMenuItem chooseCameraDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aspectRatioToolStripMenuItem;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolStripMenuItem displaySettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showCountLineToolStripMenuItem;
     }
 }
 

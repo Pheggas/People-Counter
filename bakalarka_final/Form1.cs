@@ -93,6 +93,8 @@ namespace bakalarka_final
         {
             optionsToolStripMenuItem.Text = "Options";
             languageToolStripMenuItem.Text = "Language";
+            displaySettingsToolStripMenuItem.Text = "Display settings";
+            showCountLineToolStripMenuItem.Text = "Show count line";
             deviceToolStripMenuItem.Text = "Device";
             chooseCameraDeviceToolStripMenuItem.Text = "Choose camera device";
             aspectRatioToolStripMenuItem.Text = "Aspect ratio";
@@ -101,12 +103,18 @@ namespace bakalarka_final
             rectEmpty_LT = "Frames without face in ROI: ";
             minFaceSize_LT = "Filter out faces smaller than ";
             button1.Text = "Start";
+            count_L.Text = count.ToString() + count_LT;
+            side_L.Text = side_LT;
+            rectEmpty_L.Text = rectEmpty_LT;
+            minFaceSize_L.Text = minFaceSize_LT + minFaceSize.ToString();
         }
 
         void SK()
         {
             optionsToolStripMenuItem.Text = "Možnosti";
             languageToolStripMenuItem.Text = "Jazyk";
+            displaySettingsToolStripMenuItem.Text = "Nastavenia zobrazenia";
+            showCountLineToolStripMenuItem.Text = "Zobraziť počítaciu čiaru";
             deviceToolStripMenuItem.Text = "Zariadenie";
             chooseCameraDeviceToolStripMenuItem.Text = "Zvoliť zaznamenávacie zariadenie";
             aspectRatioToolStripMenuItem.Text = "Pomer strán";
@@ -115,6 +123,10 @@ namespace bakalarka_final
             rectEmpty_LT = "Počet snímkov bez tváre v ROI: ";
             minFaceSize_LT = "Vyfiltrovať tváre menšie ako ";
             button1.Text = "Spustiť";
+            count_L.Text = count.ToString() + count_LT;
+            side_L.Text = side_LT;
+            rectEmpty_L.Text = rectEmpty_LT;
+            minFaceSize_L.Text = minFaceSize_LT + minFaceSize.ToString();
         }
 
         void Webcam()
@@ -129,8 +141,17 @@ namespace bakalarka_final
 
         void adaptPictureBox()
         {
-            pictureBox1.Height = camera.Height;
-            pictureBox1.Width = camera.Width;
+            if (Screen.PrimaryScreen.Bounds.Height < Screen.PrimaryScreen.Bounds.Width)
+            {
+                pictureBox1.Height = (int)Math.Round(Screen.PrimaryScreen.Bounds.Height * 0.5, 0);
+                pictureBox1.Width = (int)(pictureBox1.Height * (Decimal.Divide(camera.Width, camera.Height)));
+            }
+            else if (Screen.PrimaryScreen.Bounds.Width < Screen.PrimaryScreen.Bounds.Height)
+            {
+                pictureBox1.Width = (int)Math.Round(Screen.PrimaryScreen.Bounds.Width * 0.5, 0);
+                pictureBox1.Height = (int)(pictureBox1.Width * (Decimal.Divide(camera.Height, camera.Width)));
+            }
+            p2y = pictureBox1.Height;
             button1.Location = new Point(pictureBox1.Location.X + pictureBox1.Width + 6, pictureBox1.Location.Y);
             count_L.Location = new Point(button1.Location.X, button1.Location.Y + button1.Size.Height + 3);
             side_L.Location = new Point(count_L.Location.X, count_L.Location.Y + count_L.Height + 3);
@@ -150,35 +171,28 @@ namespace bakalarka_final
             else CvInvoke.Line(cFrame, px, py, new MCvScalar(0, 255, 0), 2);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.Language = "x";
-            Properties.Settings.Default.Save();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            label1.Text = systemLanguage.ToString();
-            faceCount_L.Text = Properties.Settings.Default.Language;
+            label1.Text = systemLanguage.ToString(); //remove
+            faceCount_L.Text = Properties.Settings.Default.Language; //remove
             p1x = 200;
             p1y = 0;
             p2x = 200;
-            p2y = pictureBox1.Height;
+            //p2y defines after camera is load
             timer1.Interval = 100; // 0,1 second
             timer1.Enabled = true;
-            if (Properties.Settings.Default.Language == "x")
+            if (String.IsNullOrEmpty(Properties.Settings.Default.Language) == true)
             {
-                SK();
-                //if (systemLanguage.ToString() == "sk-SK")
-                //{
-                //    SK();
-                //}
-                //else
-                //{
-                //    EN();
-                //}
+                if (systemLanguage.ToString() == "sk-SK")
+                {
+                    SK();
+                }
+                else
+                {
+                    EN();
+                }
             }
-            else if (Properties.Settings.Default.Language != "x")
+            else if (String.IsNullOrEmpty(Properties.Settings.Default.Language) == false)
             {
                 if (Properties.Settings.Default.Language == "SK")
                 {
@@ -199,6 +213,12 @@ namespace bakalarka_final
         private void button1_Click(object sender, EventArgs e)
         {
             Webcam();
+        }
+
+        private void button2_Click(object sender, EventArgs e) //temporary maybe
+        {
+            Properties.Settings.Default.Language = null;
+            Properties.Settings.Default.Save();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
