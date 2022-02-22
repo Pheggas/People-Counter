@@ -26,3 +26,5 @@ C:\Users\Pheggas\source\repos\bakalarka_final\bakalarka_final\bin\Debug\Emgu.CV.
 C:\Users\Pheggas\source\repos\bakalarka_final\bakalarka_final\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Pheggas\source\repos\bakalarka_final\bakalarka_final\bin\Debug\System.Drawing.Common.dll
 C:\Users\Pheggas\source\repos\bakalarka_final\bakalarka_final\bin\Debug\AForge.Video.DirectShow.dll
+C:\Users\Pheggas\source\repos\bakalarka_final\bakalarka_final\bin\Debug\KGySoft.CoreLibraries.dll
+C:\Users\Pheggas\source\repos\bakalarka_final\bakalarka_final\bin\Debug\KGySoft.Drawing.dll
