@@ -33,7 +33,7 @@ namespace bakalarka_final
         FilterInfoCollection DataCollector;
         string count_LT, side_LT, rectEmpty_LT, minFaceSize_LT = null;
         int p1x, p2x, p1y, p2y;
-        bool stopClicked = false;
+        bool stopClicked, startClicked = false;
         Point px, py;
         Rectangle rect_label, rect_buttons;
 
@@ -45,8 +45,6 @@ namespace bakalarka_final
 
         private void ProcessFrame(object sender, EventArgs e)
         {
-            px = new Point(p1x, p1y);
-            py = new Point(p2x, p2y);
 
             if (camera != null) //comes from button1.click
             {
@@ -65,23 +63,23 @@ namespace bakalarka_final
                             count_L.Text = count.ToString() + count_LT;
                             side_L.Text = side_LT + faceSide.ToString();
                             rectEmpty_L.Text = rectEmpty_LT + rectEmpty.ToString();
-                            if (face.Location.X >= 200)
+                            if (face.Location.X >= px.X)
                             {
                                 rectEmpty += 1;
                                 if (rectEmpty >= 20) faceSide = false;
                             }
-                            if (faceSide == false && face.Location.X < 200)
+                            if (faceSide == false && face.Location.X < px.X)
                             {
                                 timer1.Start();
                                 faceSide = true;
                                 count += 1;
                                 rectEmpty = 0;
                             }
-                            if (showCountLineToolStripMenuItem.Checked == true) drawLine();
                             doneImage = cFrame.Convert<Bgr, Byte>(); //pass image to doneImage
                         }
                     }
                 }
+                if (showCountLineToolStripMenuItem.Checked == true) drawLine();
                 pictureBox1.Image = cFrame.ToBitmap(); //show image in pictureBox
             }
             GC.RemoveMemoryPressure(1028); //set pressure releasing
@@ -93,6 +91,7 @@ namespace bakalarka_final
             }
         }
 
+        #region languages
         void EN()
         {
             optionsToolStripMenuItem.Text = "Options";
@@ -135,7 +134,9 @@ namespace bakalarka_final
             side_L.Text = side_LT;
             rectEmpty_L.Text = rectEmpty_LT;
             minFaceSize_L.Text = minFaceSize_LT + minFaceSize.Value.ToString() + "px";
+            this.Invalidate();
         }
+        #endregion
 
         void Webcam()
         {
@@ -160,10 +161,12 @@ namespace bakalarka_final
                 pictureBox1.Height = (int)(pictureBox1.Width * (Decimal.Divide(camera.Height, camera.Width)));
             }
             p2y = pictureBox1.Height;
+            px = new Point(p1x, p1y);
+            py = new Point(p2x, p2y);
             start.Location = new Point(pictureBox1.Location.X + pictureBox1.Width + 25, pictureBox1.Location.Y + 100);
             stop.Location = new Point(start.Location.X + start.Width + 6, start.Location.Y);
             this.Invalidate(); //refresh interface cause of rectangles
-            side_L.Location = new Point(start.Location.X, start.Location.Y + start.Height + 3);
+            side_L.Location = new Point(start.Location.X, start.Location.Y + start.Height + 50);
             rectEmpty_L.Location = new Point(side_L.Location.X, side_L.Location.Y + side_L.Height + 3);
             minFaceSize_L.Location = new Point(rectEmpty_L.Location.X, rectEmpty_L.Location.Y + rectEmpty_L.Height + 60);
             minFaceSize.Location = new Point(minFaceSize_L.Location.X, minFaceSize_L.Location.Y + minFaceSize_L.Height + 3);
@@ -174,16 +177,24 @@ namespace bakalarka_final
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.Clear(this.BackColor);
-            rect_label = new Rectangle(start.Location.X - 10, pictureBox1.Location.Y, ((stop.Location.X + stop.Width) - start.Location.X) + 20, (start.Location.Y - pictureBox1.Location.Y) - 15);
-            rect_buttons = new Rectangle(start.Location.X - 10, start.Location.Y - 10, ((stop.Location.X + stop.Width) - start.Location.X) + 20, start.Height + 20);
-            Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0), 5);
-            SolidBrush brush = new SolidBrush(Color.FromArgb(255, 0, 0, 0));
-            RoundedRect(rect_label, 20);
-            FillRoundedRectangle(e.Graphics, brush, rect_label, 20);
-            FillRoundedRectangle(e.Graphics, brush, rect_buttons, 20);
-            count_L.Location = new Point(rect_label.Location.X + ((((rect_label.Location.X + rect_label.Width) - rect_label.Location.X) / 2) - count_L.Width / 2), ((((rect_label.Location.Y + rect_label.Height) - rect_label.Location.Y) / 2) + rect_label.Location.Y)  - count_L.Height / 2);
+            Pen pen = new Pen(Color.FromArgb(20, 0, 0, 0), 5);
+            SolidBrush brush = new SolidBrush(Color.FromArgb(25, 0, 0, 0));
+            if (startClicked == true)
+            {
+                rect_label = new Rectangle(start.Location.X - 10, pictureBox1.Location.Y, ((stop.Location.X + stop.Width) - start.Location.X) + 20, (start.Location.Y - pictureBox1.Location.Y) - 15);
+                rect_buttons = new Rectangle(start.Location.X - 10, start.Location.Y - 10, ((stop.Location.X + stop.Width) - start.Location.X) + 20, start.Height + 20);
+                FillRoundedRectangle(e.Graphics, brush, rect_label, 20);
+                FillRoundedRectangle(e.Graphics, brush, rect_buttons, 20);
+                count_L.Location = new Point(rect_label.Location.X + ((((rect_label.Location.X + rect_label.Width) - rect_label.Location.X) / 2) - count_L.Width / 2), ((((rect_label.Location.Y + rect_label.Height) - rect_label.Location.Y) / 2) + rect_label.Location.Y) - count_L.Height / 2);
+            }
+            else if (startClicked == false)
+            {
+                rect_label = new Rectangle(count_L.Location.X - 5, count_L.Location.Y - 10, count_L.Width + 10, count_L.Height + 20);
+                FillRoundedRectangle(e.Graphics, brush, rect_label, 10);
+            }
         }
 
+        #region rounded_rectangles
         public static GraphicsPath RoundedRect(Rectangle bounds, int radius) //create rounded rectangle
         {
             int diameter = radius * 2;
@@ -240,6 +251,7 @@ namespace bakalarka_final
                 graphics.FillPath(brush, path);
             }
         }
+        #endregion
 
         void drawLine()
         {
@@ -250,12 +262,16 @@ namespace bakalarka_final
             else CvInvoke.Line(cFrame, px, py, new MCvScalar(0, 255, 0), 2);
         }
 
+        #region created_by_system
         private void Form1_Load(object sender, EventArgs e)
         {
             side_L.Visible = false;
             rectEmpty_L.Visible = false;
             minFaceSize_L.Visible = false;
             minFaceSize.Visible = false;
+            stop.Visible = false;
+            stop.Enabled = false;
+            pictureBox1.Visible = false;
             p1x = 200;
             p1y = 0;
             p2x = 200;
@@ -264,18 +280,47 @@ namespace bakalarka_final
             timer1.Enabled = true;
             if (String.IsNullOrEmpty(Properties.Settings.Default.Language) == true)
             {
-                if (systemLanguage.ToString() == "sk-SK") SK();
-                else EN();
+                if (systemLanguage.ToString() == "sk-SK")
+                {
+                    SK();
+                    count_L.Text = "Pre spustenie počítadla, kliknite na tlačidlo 'Štart'";
+                }
+                else
+                {
+                    EN();
+                    count_L.Text = "Click on 'Start' to start the counter";
+                }
             }
             else if (String.IsNullOrEmpty(Properties.Settings.Default.Language) == false)
             {
-                if (Properties.Settings.Default.Language == "SK") SK();
-                else if (Properties.Settings.Default.Language == "EN") EN();
+                if (Properties.Settings.Default.Language == "SK")
+                {
+                    SK();
+                    count_L.Text = "Pre spustenie počítadla, kliknite na tlačidlo 'Štart'";
+                }
+                else if (Properties.Settings.Default.Language == "EN")
+                {
+                    EN();
+                    count_L.Text = "Click on 'Start' to start the counter";
+                }
             }
+            count_L.Location = new Point(20, menuStrip1.Height + 20);
+            start.Location = new Point(((count_L.Width / 2) + count_L.Location.X) - start.Width / 2, count_L.Location.Y + count_L.Height + 20 );
+            Size = new Size(count_L.Location.X + count_L.Width + 35, start.Location.Y + start.Height + 5 + 39);
             DataCollector = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             foreach (FilterInfo Data in DataCollector)
             {
                 chooseCameraDeviceToolStripMenuItem.DropDownItems.Add(Data.Name);
+            }
+        }
+
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (showCountLineToolStripMenuItem.Checked == true)
+            {
+                Point mouseLocation = this.PointToClient(Cursor.Position);
+                px = new Point(mouseLocation.X - pictureBox1.Location.X, px.Y);
+                py = new Point(mouseLocation.X - pictureBox1.Location.X, py.Y);
             }
         }
 
@@ -301,7 +346,21 @@ namespace bakalarka_final
         {
             Webcam();
             start.Enabled = false;
+            stop.Enabled = true;
+            startClicked = true;
             stopClicked = false;
+            stop.Visible = true;
+            pictureBox1.Visible = true;
+            if (String.IsNullOrEmpty(Properties.Settings.Default.Language) == true)
+            {
+                if (systemLanguage.ToString() == "sk-SK") SK();
+                else EN();
+            }
+            else if (String.IsNullOrEmpty(Properties.Settings.Default.Language) == false)
+            {
+                if (Properties.Settings.Default.Language == "SK") SK();
+                else if (Properties.Settings.Default.Language == "EN") EN();
+            }
         }
 
         private void stop_Click(object sender, EventArgs e) //stop button
@@ -349,5 +408,6 @@ namespace bakalarka_final
             Properties.Settings.Default.cameraIndex = chooseCameraDeviceToolStripMenuItem.DropDownItems.IndexOf(e.ClickedItem);
             Properties.Settings.Default.Save();
         }
+        #endregion
     }
 }

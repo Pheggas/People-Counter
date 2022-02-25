@@ -95,14 +95,12 @@
     <PackageReference Include="Emgu.CV.runtime.windows">
       <Version>4.5.5.4823</Version>
     </PackageReference>
-    <PackageReference Include="KGySoft.Drawing">
-      <Version>6.3.1</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="haarcascade_frontalface_alt.xml" />
     <Content Include="haarcascade_frontalface_default.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -51,6 +51,9 @@
             this.count_L = new System.Windows.Forms.Label();
             this.start = new System.Windows.Forms.Button();
             this.stop = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minFaceSize)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -63,6 +66,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(615, 404);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
             // side_L
             // 
@@ -151,7 +155,7 @@
             this.displaySettingsToolStripMenuItem,
             this.otherSettingsToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // displaySettingsToolStripMenuItem
@@ -159,14 +163,14 @@
             this.displaySettingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showCountLineToolStripMenuItem});
             this.displaySettingsToolStripMenuItem.Name = "displaySettingsToolStripMenuItem";
-            this.displaySettingsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.displaySettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.displaySettingsToolStripMenuItem.Text = "Display settings";
             // 
             // showCountLineToolStripMenuItem
             // 
             this.showCountLineToolStripMenuItem.CheckOnClick = true;
             this.showCountLineToolStripMenuItem.Name = "showCountLineToolStripMenuItem";
-            this.showCountLineToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.showCountLineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.showCountLineToolStripMenuItem.Text = "Show count line";
             // 
             // otherSettingsToolStripMenuItem
@@ -217,9 +221,12 @@
             // count_L
             // 
             this.count_L.AutoSize = true;
-            this.count_L.Location = new System.Drawing.Point(771, 202);
+            this.count_L.BackColor = System.Drawing.Color.Transparent;
+            this.count_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.count_L.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.count_L.Location = new System.Drawing.Point(705, 65);
             this.count_L.Name = "count_L";
-            this.count_L.Size = new System.Drawing.Size(35, 13);
+            this.count_L.Size = new System.Drawing.Size(51, 20);
             this.count_L.TabIndex = 2;
             this.count_L.Text = "label1";
             this.count_L.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -244,11 +251,42 @@
             this.stop.UseVisualStyleBackColor = true;
             this.stop.Click += new System.EventHandler(this.stop_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(658, 344);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "label1";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(658, 361);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "label2";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(658, 378);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "label3";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(843, 490);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.stop);
             this.Controls.Add(this.start);
             this.Controls.Add(this.count_L);
@@ -295,6 +333,9 @@
         private System.Windows.Forms.Label count_L;
         private System.Windows.Forms.Button start;
         private System.Windows.Forms.Button stop;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 

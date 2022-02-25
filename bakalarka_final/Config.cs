@@ -8,6 +8,6 @@ namespace bakalarka_final
 {
     class Config
     {
-        public string haarFile = @"C:\Users\Pheggas\source\repos\bakalarka_final\bakalarka_final\haarcascade_frontalface_default.xml";
+        public string haarFile = @"C:\Users\Pheggas\source\repos\bakalarka_final\bakalarka_final\haarcascade_frontalface_alt.xml";
     }
 }
