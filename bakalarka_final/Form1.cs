@@ -12,6 +12,8 @@ using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
 using AForge.Video.DirectShow;
 using System.Drawing.Drawing2D;
+using System.Diagnostics;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace bakalarka_final
 {
@@ -23,7 +25,6 @@ namespace bakalarka_final
         private VideoCapture camera = null;
         Mat frame = new Mat();
         private Image<Bgr, Byte> cFrame = null;
-        Image<Bgr, byte> doneImage = null;
         CascadeClassifier haar;
         int count = 0; //overall count of faces
         bool faceSide = false; //define if face is in region of interest (ROI)
@@ -31,11 +32,12 @@ namespace bakalarka_final
         Size minSize = new System.Drawing.Size(24, 24); // size that equals to size of trained images from XML
         System.Globalization.CultureInfo systemLanguage = System.Globalization.CultureInfo.CurrentUICulture;
         FilterInfoCollection DataCollector;
-        string count_LT, side_LT, rectEmpty_LT, minFaceSize_LT = null;
+        string count_LT, side_LT, rectEmpty_LT, minFaceSize_LT, stat_LT = null;
         int p1x, p2x, p1y, p2y;
         bool stopClicked, startClicked = false;
         Point px, py;
         Rectangle rect_label, rect_buttons;
+        Stopwatch loop = new Stopwatch();
 
         public Form1()
         {
@@ -45,11 +47,13 @@ namespace bakalarka_final
 
         private void ProcessFrame(object sender, EventArgs e)
         {
-
+            loop = Stopwatch.StartNew();
             if (camera != null) //comes from button1.click
             {
                 camera.Retrieve(frame, 0);
                 cFrame = frame.ToImage<Bgr, byte>().Resize(pictureBox1.Width, pictureBox1.Height, Inter.Cubic); //edit image to fit the pictureBox; convert it to System class image
+                //int loop = DateTime.Now.Millisecond;
+                loop.Start();
                 Mat grayFrame = new Mat();
                 CvInvoke.CvtColor(cFrame, grayFrame, ColorConversion.Bgr2Gray); //convert image to grayscale
                 Rectangle[] faces = haar.DetectMultiScale(grayFrame, 1.1, 3, minSize, Size.Empty); //detect 
@@ -68,17 +72,29 @@ namespace bakalarka_final
                                 rectEmpty += 1;
                                 if (rectEmpty >= 20) faceSide = false;
                             }
-                            if (faceSide == false && face.Location.X < px.X)
+                            if (face.Location.X < px.X)
                             {
-                                timer1.Start();
-                                faceSide = true;
-                                count += 1;
                                 rectEmpty = 0;
+                                if (faceSide == false)
+                                {
+                                    timer1.Start();
+                                    faceSide = true;
+                                    count += 1;
+                                }
                             }
-                            doneImage = cFrame.Convert<Bgr, Byte>(); //pass image to doneImage
+                            cFrame.Convert<Bgr, Byte>(); //pass image to picturebox
                         }
                     }
                 }
+                loop.Stop();
+                chart1.ChartAreas[0].RecalculateAxesScale();
+                chart1.ChartAreas[0].AxisY.Minimum = Double.NaN;
+                chart1.Series["Series1"].Points.AddY(loop.ElapsedMilliseconds);
+                if (chart1.Series["Series1"].Points.Count >= 30)
+                {
+                    chart1.Series["Series1"].Points.RemoveAt(0);
+                }
+                //this.Text = (loop.ElapsedMilliseconds).ToString();
                 if (showCountLineToolStripMenuItem.Checked == true) drawLine();
                 pictureBox1.Image = cFrame.ToBitmap(); //show image in pictureBox
             }
@@ -101,17 +117,21 @@ namespace bakalarka_final
             showCountLineToolStripMenuItem.Text = "Show count line";
             otherSettingsToolStripMenuItem.Text = "Other settings";
             developerModeToolStripMenuItem.Text = "Developer mode";
+            statisticsToolStripMenuItem.Text = "Statistics";
             deviceToolStripMenuItem.Text = "Device";
             chooseCameraDeviceToolStripMenuItem.Text = "Choose camera device";
             count_LT = " people counted";
             side_LT = "Face in ROI: ";
             rectEmpty_LT = "Frames without face in ROI: ";
             minFaceSize_LT = "Filter out faces smaller than ";
+            stat_LT = "Time of face detection per picture";
             start.Text = "Start";
             count_L.Text = count.ToString() + count_LT;
             side_L.Text = side_LT;
             rectEmpty_L.Text = rectEmpty_LT;
             minFaceSize_L.Text = minFaceSize_LT + minFaceSize.Value.ToString() + "px";
+            stat_L.Text = stat_LT;
+            chart1.Series["Series1"].LegendText = "Time (in milliseconds)";
         }
 
         void SK()
@@ -123,17 +143,21 @@ namespace bakalarka_final
             showCountLineToolStripMenuItem.Text = "Zobraziť počítaciu čiaru";
             otherSettingsToolStripMenuItem.Text = "Ostatné nastavenia";
             developerModeToolStripMenuItem.Text = "Mód vývojára";
+            statisticsToolStripMenuItem.Text = "Štatistiky";
             deviceToolStripMenuItem.Text = "Zariadenie";
             chooseCameraDeviceToolStripMenuItem.Text = "Zvoliť zaznamenávacie zariadenie";
             count_LT = " započítaných ľudí";
             side_LT = "Tvár v ROI: ";
             rectEmpty_LT = "Počet snímkov bez tváre v ROI: ";
             minFaceSize_LT = "Vyfiltrovať tváre menšie ako ";
+            stat_LT = "Doba detegovania tvárí z obrazu";
             start.Text = "Spustiť";
             count_L.Text = count.ToString() + count_LT;
             side_L.Text = side_LT;
             rectEmpty_L.Text = rectEmpty_LT;
             minFaceSize_L.Text = minFaceSize_LT + minFaceSize.Value.ToString() + "px";
+            stat_L.Text = stat_LT;
+            chart1.Series["Series1"].LegendText = "Čas (v milisekundách)";
             this.Invalidate();
         }
         #endregion
@@ -164,14 +188,16 @@ namespace bakalarka_final
             px = new Point(p1x, p1y);
             py = new Point(p2x, p2y);
             start.Location = new Point(pictureBox1.Location.X + pictureBox1.Width + 25, pictureBox1.Location.Y + 100);
-            stop.Location = new Point(start.Location.X + start.Width + 6, start.Location.Y);
+            stop.Location = new Point(start.Location.X + start.Width + 35, start.Location.Y);
             this.Invalidate(); //refresh interface cause of rectangles
-            side_L.Location = new Point(start.Location.X, start.Location.Y + start.Height + 50);
+            side_L.Location = new Point(start.Location.X, start.Location.Y + start.Height + 30);
             rectEmpty_L.Location = new Point(side_L.Location.X, side_L.Location.Y + side_L.Height + 3);
-            minFaceSize_L.Location = new Point(rectEmpty_L.Location.X, rectEmpty_L.Location.Y + rectEmpty_L.Height + 60);
+            minFaceSize_L.Location = new Point(rectEmpty_L.Location.X, rectEmpty_L.Location.Y + rectEmpty_L.Height + 30);
             minFaceSize.Location = new Point(minFaceSize_L.Location.X, minFaceSize_L.Location.Y + minFaceSize_L.Height + 3);
+            chart1.Location = new Point(pictureBox1.Location.X + pictureBox1.Width + 10, start.Location.Y + start.Height + 30);
+            stat_L.Location = new Point(chart1.Location.X + ((((chart1.Location.X + chart1.Width) - chart1.Location.X) / 2) - stat_L.Width / 2), chart1.Location.Y - 15);
             minFaceSize.Maximum = pictureBox1.Height;
-            this.Size = new Size(start.Location.X + start.Width + 120, pictureBox1.Location.Y + pictureBox1.Height + 50);
+            this.Size = new Size(start.Location.X + start.Width + 150, pictureBox1.Location.Y + pictureBox1.Height + 50);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -276,6 +302,7 @@ namespace bakalarka_final
             p1y = 0;
             p2x = 200;
             //p2y defines after camera is load
+            chart1.Series["Series1"].Points.Clear();
             timer1.Interval = 100; // 0,1 second
             timer1.Enabled = true;
             if (String.IsNullOrEmpty(Properties.Settings.Default.Language) == true)
@@ -296,7 +323,7 @@ namespace bakalarka_final
                 if (Properties.Settings.Default.Language == "SK")
                 {
                     SK();
-                    count_L.Text = "Pre spustenie počítadla, kliknite na tlačidlo 'Štart'";
+                    count_L.Text = "Pre spustenie počítadla, kliknite na tlačidlo 'Spustiť'";
                 }
                 else if (Properties.Settings.Default.Language == "EN")
                 {
@@ -318,9 +345,23 @@ namespace bakalarka_final
         {
             if (showCountLineToolStripMenuItem.Checked == true)
             {
-                Point mouseLocation = this.PointToClient(Cursor.Position);
+                Point mouseLocation = this.PointToClient(MousePosition);
                 px = new Point(mouseLocation.X - pictureBox1.Location.X, px.Y);
                 py = new Point(mouseLocation.X - pictureBox1.Location.X, py.Y);
+            }
+        }
+
+        private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (statisticsToolStripMenuItem.Checked == true)
+            {
+                chart1.Visible = true;
+                stat_L.Visible = true;
+            }
+            else
+            {
+                chart1.Visible = false;
+                stat_L.Visible = false;
             }
         }
 
@@ -328,6 +369,8 @@ namespace bakalarka_final
         {
             if (developerModeToolStripMenuItem.Checked == true)
             {
+                chart1.Location = new Point(pictureBox1.Location.X + pictureBox1.Width + 5, minFaceSize.Location.Y + minFaceSize.Height + 10);
+                stat_L.Location = new Point(chart1.Location.X + ((((chart1.Location.X + chart1.Width) - chart1.Location.X) / 2) - stat_L.Width / 2), chart1.Location.Y - 15);
                 side_L.Visible = true;
                 rectEmpty_L.Visible = true;
                 minFaceSize_L.Visible = true;
@@ -335,6 +378,8 @@ namespace bakalarka_final
             }
             else
             {
+                chart1.Location = new Point(pictureBox1.Location.X + pictureBox1.Width + 10, start.Location.Y + start.Height + 30);
+                stat_L.Location = new Point(chart1.Location.X + ((((chart1.Location.X + chart1.Width) - chart1.Location.X) / 2) - stat_L.Width / 2), chart1.Location.Y - 15);
                 side_L.Visible = false;
                 rectEmpty_L.Visible = false;
                 minFaceSize_L.Visible = false;

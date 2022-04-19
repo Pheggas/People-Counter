@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="bakalarka_final.exe" version="1.0.0.1" publicKeyToken="b0e0ee3d3d44972f" language="neutral" processorArchitecture="amd64" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="bakalarka_final" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
+    <commandLine file="bakalarka_final.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AForge.dll" size="17920">
+      <assemblyIdentity name="AForge" version="2.2.5.0" publicKeyToken="C1DB6FF4EAA06AEB" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>lmpHQGCorKcMc7oJ0Lb+I1MDWWHHEHuQA++HnAEP+No=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AForge.Video.dll" size="20992">
+      <assemblyIdentity name="AForge.Video" version="2.2.5.0" publicKeyToken="CBFB6E07D173C401" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>uvpu0EyieCJwB0EnoEmN3gIsKp9Alsa7K448CLs9QE0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AForge.Video.DirectShow.dll" size="61440">
+      <assemblyIdentity name="AForge.Video.DirectShow" version="2.2.5.0" publicKeyToken="61EA4348D43881B7" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Zm1EeY2U6voe0hr3npvAKT/9lvhjq12H94vO6e+f/Ws=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="bakalarka_final.exe" size="197056">
+      <assemblyIdentity name="bakalarka_final" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>hzY+v5Uc5MmvL2i/IyyGH5ELY4SVD2EvU+0ZWk5yKig=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Emgu.CV.Bitmap.dll" size="26040">
+      <assemblyIdentity name="Emgu.CV.Bitmap" version="4.5.5.4823" publicKeyToken="7281126722AB4438" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>b39mU1Nm8DvGbJenSbsoWPQ9u+L+mTqLbcgv+3YpMZ8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Emgu.CV.Platform.NetStandard.dll" size="868280">
+      <assemblyIdentity name="Emgu.CV.Platform.NetStandard" version="4.5.5.4823" publicKeyToken="7281126722AB4438" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>FQibo3xlnmz5L2ETQaLI/i9Yn6MeQ27/PG0C2knXurM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="701992">
+      <assemblyIdentity name="Newtonsoft.Json" version="13.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>tiSUnfiw46YVP9+3MKfG9JkLZZLuDZIuF4hDPSdmEPM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Drawing.Common.dll" size="53360">
+      <assemblyIdentity name="System.Drawing.Common" version="6.0.0.0" publicKeyToken="CC7B13FFCD2DDD51" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>yhg4OiBwUYrow+lsvRcF2ig8itpN3zliF9K8t9zQMQM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="bakalarka_final.exe.config" size="940">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>PsEkWx/jrfsOBHjRTIhiRd6hIpeKY8XFscmf9tjwGlI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="haarcascade_frontalface_alt.xml" size="701057" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>nvUjVk8r+K/iaQaCGZw+47W4o8d/BWuhQDUZiU3n440=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="haarcascade_frontalface_default.xml" size="930127" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>D31FJ4ROtRTUpJSOgi2pD7sWo0oLu7xq3GSYdHpar7A=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=PHEGGAS\Pheggas" issuerKeyHash="58353149814ad4bff729681f2a9a6846e19660fd" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>rAx/1DxlIzOOFRsrBxx7leUTI8Pb2jVUgJPIxf5Il+w=</DigestValue></Reference></SignedInfo><SignatureValue>kn+QoHfyAddVp/yNn5hZpZrRsbliZRiuTomLDBs2mQ2Y+nZd5/GavgUcWk8yN3u6v6a1F2EF3Dw6VmLC7beuPuphnmZQtGOW6EMdYw7jVdmwLIo/A+hWyH4ucgs/YgxU//5+631bQnJfCyCEDYWvOE37B7wGG1CHcUIDbq8WnGk=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>uqni/OH+mFCvOpOICx5xpHHeTN3qvKP9O8YHFncjTyf5GIUrbX+pnngStMh3QKyO40hrldtd+mfBlzg+5NaWw12rjdripHuh/qqPBznUKPaURGgdD79SNzIq5/aT0QMT3UohwI4t6VLSAI1HuXUWKh/K66vq5Dqi57ROqACNS60=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="ec9748fec5c893805435dadbc32313e5957b1c072b1b158e3323653cd47f0cac" Description="" Url=""><as:assemblyIdentity name="bakalarka_final.exe" version="1.0.0.1" publicKeyToken="b0e0ee3d3d44972f" language="neutral" processorArchitecture="amd64" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=PHEGGAS\Pheggas</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>yqirSGctRtVMUev5Z8OAJSnTTceoIVcqAxA75hBjhxk=</DigestValue></Reference></SignedInfo><SignatureValue>bO5kZbWCDtzm3My83B+7mmkJvljK3zG+HYNK/C3ELyskXSqiMgwhft4iPsvHBF+jnagc6ETNjKh4sgtqRwYipK3O/ucAqJGZM4Q8LmP3GWUiaOLk/jCPkAbMLz+ByzOT7GpE5RHRy0xyBfM1WADOnx8Mt1b8tz9H9RVMTXYjnaI=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>uqni/OH+mFCvOpOICx5xpHHeTN3qvKP9O8YHFncjTyf5GIUrbX+pnngStMh3QKyO40hrldtd+mfBlzg+5NaWw12rjdripHuh/qqPBznUKPaURGgdD79SNzIq5/aT0QMT3UohwI4t6VLSAI1HuXUWKh/K66vq5Dqi57ROqACNS60=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB1TCCAT6gAwIBAgIQTV+0ki8rtLtJp+lpkSoElDANBgkqhkiG9w0BAQsFADApMScwJQYDVQQDHh4AUABIAEUARwBHAEEAUwBcAFAAaABlAGcAZwBhAHMwHhcNMjIwMzI5MTQxMjA2WhcNMjMwMzI5MjAxMjA2WjApMScwJQYDVQQDHh4AUABIAEUARwBHAEEAUwBcAFAAaABlAGcAZwBhAHMwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALqp4vzh/phQrzqTiAsecaRx3kzd6ryj/TvGBxZ3I08n+RiFK21/qZ54ErTId0CsjuNIa5XbXfpnwZc4PuTWlsNdq43a4qR7of6qjwc51Cj2lERoHQ+/UjcyKuf2k9EDE91KIcCOLelS0gCNR7l1Fiofyuur6uQ6oue0TqgAjUutAgMBAAEwDQYJKoZIhvcNAQELBQADgYEAUJAy3KgMcqKp2+stL9366fpLM7BHkeVTMJevoyjbIQMWp9rSkwGGg4KFjK7ewJ1WVmlny2orw0X9AiIl3VIVYrach3BG7rjiyLseLvNUskpRfOetxdcWrUlaDtt4Kl0PIcS5+18/+kBuwW8Dh9gZGYAEYMqCA3Lxx3b7hRUpPNo=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

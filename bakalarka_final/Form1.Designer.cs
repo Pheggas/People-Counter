@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.side_L = new System.Windows.Forms.Label();
             this.rectEmpty_L = new System.Windows.Forms.Label();
@@ -44,19 +48,19 @@
             this.showCountLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.developerModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chooseCameraDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.test = new System.Windows.Forms.Button();
             this.count_L = new System.Windows.Forms.Label();
             this.start = new System.Windows.Forms.Button();
             this.stop = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.stat_L = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minFaceSize)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -71,7 +75,7 @@
             // side_L
             // 
             this.side_L.AutoSize = true;
-            this.side_L.Location = new System.Drawing.Point(633, 241);
+            this.side_L.Location = new System.Drawing.Point(633, 200);
             this.side_L.Name = "side_L";
             this.side_L.Size = new System.Drawing.Size(35, 13);
             this.side_L.TabIndex = 3;
@@ -80,7 +84,7 @@
             // rectEmpty_L
             // 
             this.rectEmpty_L.AutoSize = true;
-            this.rectEmpty_L.Location = new System.Drawing.Point(633, 254);
+            this.rectEmpty_L.Location = new System.Drawing.Point(633, 213);
             this.rectEmpty_L.Name = "rectEmpty_L";
             this.rectEmpty_L.Size = new System.Drawing.Size(35, 13);
             this.rectEmpty_L.TabIndex = 4;
@@ -88,7 +92,7 @@
             // 
             // minFaceSize
             // 
-            this.minFaceSize.Location = new System.Drawing.Point(645, 304);
+            this.minFaceSize.Location = new System.Drawing.Point(650, 252);
             this.minFaceSize.Maximum = 1000;
             this.minFaceSize.Minimum = 1;
             this.minFaceSize.Name = "minFaceSize";
@@ -100,7 +104,7 @@
             // minFaceSize_L
             // 
             this.minFaceSize_L.AutoSize = true;
-            this.minFaceSize_L.Location = new System.Drawing.Point(655, 288);
+            this.minFaceSize_L.Location = new System.Drawing.Point(660, 236);
             this.minFaceSize_L.Name = "minFaceSize_L";
             this.minFaceSize_L.Size = new System.Drawing.Size(13, 13);
             this.minFaceSize_L.TabIndex = 7;
@@ -113,7 +117,7 @@
             this.deviceToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(843, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(876, 24);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -132,20 +136,20 @@
             this.englishToolStripMenuItem,
             this.slovakToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
             // 
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
             // slovakToolStripMenuItem
             // 
             this.slovakToolStripMenuItem.Name = "slovakToolStripMenuItem";
-            this.slovakToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.slovakToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.slovakToolStripMenuItem.Text = "Slovenčina";
             this.slovakToolStripMenuItem.Click += new System.EventHandler(this.slovakToolStripMenuItem_Click);
             // 
@@ -176,18 +180,27 @@
             // otherSettingsToolStripMenuItem
             // 
             this.otherSettingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.developerModeToolStripMenuItem});
+            this.developerModeToolStripMenuItem,
+            this.statisticsToolStripMenuItem});
             this.otherSettingsToolStripMenuItem.Name = "otherSettingsToolStripMenuItem";
-            this.otherSettingsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.otherSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.otherSettingsToolStripMenuItem.Text = "Other settings";
             // 
             // developerModeToolStripMenuItem
             // 
             this.developerModeToolStripMenuItem.CheckOnClick = true;
             this.developerModeToolStripMenuItem.Name = "developerModeToolStripMenuItem";
-            this.developerModeToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.developerModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.developerModeToolStripMenuItem.Text = "Developer mode";
             this.developerModeToolStripMenuItem.CheckedChanged += new System.EventHandler(this.developerModeToolStripMenuItem_CheckedChanged);
+            // 
+            // statisticsToolStripMenuItem
+            // 
+            this.statisticsToolStripMenuItem.CheckOnClick = true;
+            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
+            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.statisticsToolStripMenuItem.Text = "Statistics";
+            this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
             // 
             // deviceToolStripMenuItem
             // 
@@ -207,16 +220,6 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // test
-            // 
-            this.test.Location = new System.Drawing.Point(677, 407);
-            this.test.Name = "test";
-            this.test.Size = new System.Drawing.Size(110, 23);
-            this.test.TabIndex = 10;
-            this.test.Text = "test for lang var";
-            this.test.UseVisualStyleBackColor = true;
-            this.test.Click += new System.EventHandler(this.button2_Click);
             // 
             // count_L
             // 
@@ -251,59 +254,75 @@
             this.stop.UseVisualStyleBackColor = true;
             this.stop.Click += new System.EventHandler(this.stop_Click);
             // 
-            // label1
+            // chart1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(658, 344);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "label1";
+            chartArea2.AxisY.IsStartedFromZero = false;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 85F;
+            chartArea2.Position.Width = 100F;
+            chartArea2.Position.Y = 15F;
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Alignment = System.Drawing.StringAlignment.Center;
+            legend2.DockedToChartArea = "ChartArea1";
+            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend2.IsDockedInsideChartArea = false;
+            legend2.Name = "Legend1";
+            legend2.Position.Auto = false;
+            legend2.Position.Height = 16.90141F;
+            legend2.Position.Width = 70.09132F;
+            legend2.Position.X = 29.90868F;
+            legend2.Position.Y = 2F;
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(636, 303);
+            this.chart1.Name = "chart1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(220, 143);
+            this.chart1.TabIndex = 13;
+            this.chart1.Text = "chart1";
+            this.chart1.Visible = false;
             // 
-            // label2
+            // stat_L
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(658, 361);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "label2";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(658, 378);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "label3";
+            this.stat_L.AutoSize = true;
+            this.stat_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.stat_L.Location = new System.Drawing.Point(728, 287);
+            this.stat_L.Name = "stat_L";
+            this.stat_L.Size = new System.Drawing.Size(35, 13);
+            this.stat_L.TabIndex = 14;
+            this.stat_L.Text = "label1";
+            this.stat_L.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(843, 490);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(876, 490);
+            this.Controls.Add(this.stat_L);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.stop);
             this.Controls.Add(this.start);
             this.Controls.Add(this.count_L);
-            this.Controls.Add(this.test);
             this.Controls.Add(this.minFaceSize_L);
             this.Controls.Add(this.minFaceSize);
             this.Controls.Add(this.rectEmpty_L);
             this.Controls.Add(this.side_L);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Aplikácia na počítanie osôb (People counter)";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minFaceSize)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,7 +343,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem deviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chooseCameraDeviceToolStripMenuItem;
-        private System.Windows.Forms.Button test;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displaySettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showCountLineToolStripMenuItem;
@@ -333,9 +351,9 @@
         private System.Windows.Forms.Label count_L;
         private System.Windows.Forms.Button start;
         private System.Windows.Forms.Button stop;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
+        private System.Windows.Forms.Label stat_L;
     }
 }
 
